@@ -1,0 +1,9 @@
+/node_modules
+/logs
+/build
+/storage
+
+/package-lock.json
+/yarn.lock
+
+.env
