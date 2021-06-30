@@ -3,7 +3,6 @@
 /build
 /storage
 
-/package-lock.json
 /yarn.lock
 
 .env
