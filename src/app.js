@@ -1,6 +1,7 @@
 import express from 'express';
 
 import loaders from 'src/loaders';
+import shutdown from 'src/shutdown';
 
 import config from 'config';
 import Logger from 'config/winston';
@@ -26,6 +27,10 @@ async function init() {
 		if (err) process.exit(1);
 		Logger.info("HTTP server started at port: " + config.app.port);
 	});
+
+	// Attach graceful shutdown event listener.
+
+	await shutdown(server);
 }
 
 init();

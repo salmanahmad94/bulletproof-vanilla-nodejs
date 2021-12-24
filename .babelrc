@@ -1,26 +1,38 @@
 {
-    "plugins": [
-      [
-        "@babel/plugin-proposal-class-properties",
-        {
-          "loose": true
-        }
-      ],
-      [
-        "module-resolver",
-        {
-          "alias": {
-            "src": "./src",
-            "config": "./src/config",
-            "db": "./src/db",
-            "declarations": "./src/declarations",
-            "utility": "./src/utility",
-            "helpers": "./src/helpers"
-          }
-        }
-      ]
+  "plugins": [
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
     ],
-    "presets": [
-      "@babel/preset-env"
+    [
+      "@babel/plugin-proposal-private-methods",
+      {
+        "loose": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-private-property-in-object",
+      {
+        "loose": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "src": "./src",
+          "config": "./src/config",
+          "db": "./src/db",
+          "declarations": "./src/declarations",
+          "utility": "./src/utility",
+          "helpers": "./src/helpers"
+        }
+      }
     ]
-  }
+  ],
+  "presets": [
+    "@babel/preset-env"
+  ]
+}
