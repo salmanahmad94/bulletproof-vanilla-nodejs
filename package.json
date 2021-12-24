@@ -4,7 +4,9 @@
   "description": "Bulletproof NodeJS architecture written in vanilla javascript.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node -r dotenv/config src/app"
+    "build": "babel src --copy-files -d build",
+    "dev": "nodemon --exec babel-node -r dotenv/config src/app",
+    "start": "pm2 start pm2.config.js"
   },
   "repository": {
     "type": "git",
