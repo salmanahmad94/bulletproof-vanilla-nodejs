@@ -1,25 +1,30 @@
-import Container from 'typedi';
+import Container from "typedi";
 
 export default (req, res, next) => {
-    const AuthService = Container.get('AuthService');
-    const BroadcastService = Container.get('BroadcastService');
-    const Logger = Container.get('Logger');
+  const AuthService = Container.get("AuthService");
+  const BroadcastService = Container.get("BroadcastService");
+  const SchedulerService = Container.get("SchedulerService");
+  const Logger = Container.get("Logger");
 
-    let user = res.locals.user;
+  let user = res.locals.user;
 
-    // Generate the access token for the user.
-    
-    const { token } = AuthService.generateJwt(user);
+  // Generate the access token for the user.
 
-    // Broadcast LOGIN event.
+  const { token } = AuthService.generateJwt(user);
 
-    BroadcastService.login(user);
+  // Broadcast LOGIN event.
 
-    Logger.verbose(user.username + ' logged in.');
+  BroadcastService.login(user);
 
-    delete user.password;
+  Logger.verbose(user.username + " logged in.");
 
-    // Respond with the user and the JWT claim.
+  delete user.password;
 
-    res.status(201).json({ user, token });
-}
+  // Schedule an Agenda job to update the lastLogin of the user.
+
+  SchedulerService.updateUserLastLogin(user);
+
+  // Respond with the user and the JWT claim.
+
+  res.status(201).json({ user, token });
+};
