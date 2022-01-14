@@ -1,7 +1,7 @@
 # bulletproof-vanilla-nodejs
 
 ## Description
-This is an implementation of the NodeJS monolithic architecture I have written about on my [website](https://salman-ahmad.com/archives/nodejs) in a series of articles.
+This is an implementation of the NodeJS monolithic architecture I have written about on my [website](https://salmanahmad94.com/archives/nodejs) in a series of articles.
 
 ## Getting started
 Clone the project onto your local machine. Make sure you have NodeJS installed. 
