@@ -1,31 +1,31 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-import config from "config";
-import Logger from "config/winston";
+import config from 'config';
+import Logger from 'config/winston';
 
 export default async (server) => {
-  // On receiving the process message 'shutdown',
-  // gracefully shut down each connection and the application.
+    // On receiving the process message 'shutdown',
+    // gracefully shut down each connection and the application.
 
-  process.on("message", async (msg) => {
-    if (msg === "shutdown") {
-      Logger.info("Application shutting down.", { label: "APP" });
+    process.on('message', async (msg) => {
+        if (msg === 'shutdown') {
+            Logger.info('Application shutting down.', { label: 'APP' });
 
-      // Shutdown the HTTP server.
+            // Shutdown the HTTP server.
 
-      await server.close();
+            await server.close();
 
-      Logger.info("HTTP server stopped at port: " + config.app.port, {
-        label: "APP",
-      });
+            Logger.info('HTTP server stopped at port: ' + config.app.port, {
+                label: 'APP'
+            });
 
-      // Close MongoDB connection.
+            // Close MongoDB connection.
 
-      await mongoose.connection.close();
+            await mongoose.connection.close();
 
-      // Shutdown the NodeJS process gracefully.
+            // Shutdown the NodeJS process gracefully.
 
-      process.exit(0);
-    }
-  });
+            process.exit(0);
+        }
+    });
 };

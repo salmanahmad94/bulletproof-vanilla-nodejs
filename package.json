@@ -50,6 +50,9 @@
     "@babel/preset-env": "^7.15.0",
     "@babel/register": "^7.15.3",
     "babel-plugin-module-resolver": "^5.0.0",
-    "nodemon": "^2.0.12"
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.8.8"
   }
 }

@@ -1,36 +1,36 @@
 {
-  "plugins": [
-    [
-      "@babel/plugin-proposal-class-properties",
-      {
-        "loose": true
-      }
+    "plugins": [
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "loose": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-private-methods",
+            {
+                "loose": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-private-property-in-object",
+            {
+                "loose": true
+            }
+        ],
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "src": "./src",
+                    "config": "./src/config",
+                    "db": "./src/db",
+                    "declarations": "./src/declarations",
+                    "utility": "./src/utility",
+                    "helpers": "./src/helpers"
+                }
+            }
+        ]
     ],
-    [
-      "@babel/plugin-proposal-private-methods",
-      {
-        "loose": true
-      }
-    ],
-    [
-      "@babel/plugin-proposal-private-property-in-object",
-      {
-        "loose": true
-      }
-    ],
-    [
-      "module-resolver",
-      {
-        "alias": {
-          "src": "./src",
-          "config": "./src/config",
-          "db": "./src/db",
-          "declarations": "./src/declarations",
-          "utility": "./src/utility",
-          "helpers": "./src/helpers"
-        }
-      }
-    ]
-  ],
-  "presets": ["@babel/preset-env"]
+    "presets": ["@babel/preset-env"]
 }
