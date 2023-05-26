@@ -1,3 +1,3 @@
 export const options = {
-    extended: true
-}
+  extended: true,
+};

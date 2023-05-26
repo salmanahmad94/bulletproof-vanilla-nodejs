@@ -3,7 +3,7 @@
  */
 
 export const events = {
-    auth: {
-        LOGIN: 'LOGIN'
-    }
-}
+  auth: {
+    LOGIN: "LOGIN",
+  },
+};

@@ -1,14 +1,16 @@
-import Container from 'typedi';
-import passport from 'passport';
-import localStrategy from 'passport-local';
-import { Strategy as jwtStrategy, ExtractJwt } from 'passport-jwt';
-import { compare } from 'bcryptjs';
+import Container from "typedi";
+import passport from "passport";
+import localStrategy from "passport-local";
+import { Strategy as jwtStrategy, ExtractJwt } from "passport-jwt";
+import { compare } from "bcryptjs";
 
-import config from 'config';
-import Utility from 'utility';
+import config from "config";
+import Utility from "utility";
 
-passport.use('local', new localStrategy({ session: false }, async (username, password, done) => {
-    const AuthService = Container.get('AuthService');
+passport.use(
+  "local",
+  new localStrategy({ session: false }, async (username, password, done) => {
+    const AuthService = Container.get("AuthService");
 
     // A query to fetch the user with email or username.
 
@@ -16,7 +18,7 @@ passport.use('local', new localStrategy({ session: false }, async (username, pas
 
     // Fetch the user based on the search query.
 
-    let user = await AuthService.fetch(query, '_id username password email')
+    let user = await AuthService.fetch(query, "_id username password email");
 
     // If the DB query fails, end execution.
 
@@ -30,33 +32,35 @@ passport.use('local', new localStrategy({ session: false }, async (username, pas
 
     if (!user.password) return done(null, false);
 
-    // Compare the user's password to the hash value of the incoming password. 
+    // Compare the user's password to the hash value of the incoming password.
 
     compare(password, user.password)
-        .then(response => {
+      .then((response) => {
+        // If no response is received, end execution.
 
-            // If no response is received, end execution.
+        if (!response) return done(null, false);
 
-            if (!response) return done(null, false);
+        // Externalize the user.
 
-            // Externalize the user.
+        user = Utility.modifiers.user(user);
 
-            user = Utility.modifiers.user(user);
+        // Return the user and end execution.
 
-            // Return the user and end execution.
-
-            return done(null, user);
-        })
-        .catch(error => done(error))
-}));
+        return done(null, user);
+      })
+      .catch((error) => done(error));
+  })
+);
 
 const options = {
-    secretOrKey: config.app.jwtSecret,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt')
+  secretOrKey: config.app.jwtSecret,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"),
 };
 
-passport.use('jwt', new jwtStrategy(options, async (payload, done) => {
-    const AuthService = Container.get('AuthService');
+passport.use(
+  "jwt",
+  new jwtStrategy(options, async (payload, done) => {
+    const AuthService = Container.get("AuthService");
 
     // A query to fetch the user based on the id of the payload.
 
@@ -64,7 +68,7 @@ passport.use('jwt', new jwtStrategy(options, async (payload, done) => {
 
     // Fetch the user based on the search query.
 
-    let user = await AuthService.fetch(query, '_id username password email')
+    let user = await AuthService.fetch(query, "_id username password email");
 
     // If the DB query fails, end execution.
 
@@ -77,4 +81,5 @@ passport.use('jwt', new jwtStrategy(options, async (payload, done) => {
     // Return the user.
 
     return done(null, user);
-}));
+  })
+);
