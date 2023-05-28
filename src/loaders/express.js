@@ -61,14 +61,15 @@ export default async (app) => {
 
     // No routes above was able to handle the incoming request, return 404.
 
-    app.use(() => {
-        throw new ErrorHandler(404, 'Not found.');
+    app.use((req, res, next) => {
+        const error = new ErrorHandler(404, 'Not found.');
+        next(error);
     });
 
     // General error handler incase application crashes.
     // next(err) is handled here.
 
-    app.use((error, req, res) => {
+    app.use((error, req, res, next) => {
         // If error is an array, that means this was thrown be validator.js
         // Return 422 - UNPROCESSABLE ENTRY response along with data.
 
